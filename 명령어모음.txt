@@ -5,7 +5,7 @@ python preprocess.py --num_workers 10 --name moon --in_dir .\datasets\moon --out
 
 
 python train_tacotron2.py --data_paths .\data\son
-python train_tacotron2.py --data_paths .\data\moon
+python train_tacotron2.py --data_paths .\data\moon --load_path .\logdir-tacotron2\moon_2019-12-17_14-45-37
 
 python train_vocoder.py
 
