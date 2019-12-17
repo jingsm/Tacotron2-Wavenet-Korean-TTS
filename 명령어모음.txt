@@ -4,8 +4,8 @@ python preprocess.py --num_workers 10 --name son --in_dir .\datasets\son --out_d
 python preprocess.py --num_workers 10 --name moon --in_dir .\datasets\moon --out_dir .\data\moon
 
 
-python train_tacotron2.py
-
+python train_tacotron2.py --data_paths .\data\son
+python train_tacotron2.py --data_paths .\data\moon
 
 python train_vocoder.py
 
