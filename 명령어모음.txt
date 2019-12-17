@@ -1,3 +1,5 @@
+cp utils/NanumBarunGothic.ttf venv/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/
+
 python preprocess.py --num_workers 10 --name son --in_dir .\datasets\son --out_dir .\data\son
 
 
