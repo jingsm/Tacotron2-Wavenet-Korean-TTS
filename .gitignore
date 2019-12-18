@@ -1,0 +1,6 @@
+# : comments
+
+__pycache__/
+logdir-tacotron2/
+venv/
+
