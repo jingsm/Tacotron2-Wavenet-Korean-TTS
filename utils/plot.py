@@ -13,7 +13,7 @@ matplotlib.use('Agg')
 
 font_fname = './/utils//NanumBarunGothic.ttf'
 font_name = font_manager.FontProperties(fname=font_fname).get_name()
-matplotlib.rc('font', family="NanumBarunGothic")
+matplotlib.rc('font', family=font_name)
 
 
 import matplotlib.pyplot as plt
