@@ -24,9 +24,17 @@ from datasets.datafeeder_tacotron2 import DataFeederTacotron2
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-tf.logging.set_verbosity(tf.logging.ERROR)
-log = infolog.log
 
+tf_version = tf.__version__
+tf_major_ver, tf_minor_ver, tf_patch_ver = tf_version.split('.')
+
+if int(tf_major_ver) <= 1 and int(tf_minor_ver) < 15:
+  # deprecated - tf.logging.set_verbosity, tf.logging.ERROR
+  tf.logging.set_verbosity(tf.logging.ERROR)
+else:
+  tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
+log = infolog.log
 
 
 def get_git_commit():

@@ -1,3 +1,11 @@
+## CUDA on Windows 10
+cuda_10.0.130_411.31_win10.exe
+cudnn-10.0-windows10-x64-v7.6.0.64.zip
+
+pip install tensorflow-gpu==1.15.0 tensorboard==1.15.0
+
+
+
 cp utils/NanumBarunGothic.ttf venv/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/
 
 python preprocess.py --num_workers 10 --name son --in_dir .\datasets\son --out_dir .\data\son
@@ -20,3 +28,4 @@ python generate.py --mel ./logdir-wavenet/mel-moon.npy --gc_cardinality 2 --gc_i
 python generate.py --mel ./logdir-wavenet/mel-son.npy --gc_cardinality 2 --gc_id 1 ./logdir-wavenet/train/2019-03-27T20-27-18
 python generate.py --mel ./logdir-wavenet/moon-Aust.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2019-03-27T20-27-18
 python generate.py --mel ./logdir-wavenet/son-Aust.npy --gc_cardinality 2 --gc_id 1 ./logdir-wavenet/train/2019-03-27T20-27-18
+
