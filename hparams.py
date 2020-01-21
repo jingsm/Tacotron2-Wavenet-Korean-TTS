@@ -131,8 +131,8 @@ hparams = tf.contrib.training.HParams(
     
 
     # Model
-    #model_type = 'multi-speaker', # [single, multi-speaker]
-    model_type = 'single', # [single, multi-speaker]
+    model_type = 'multi-speaker', # [single, multi-speaker]
+    # model_type = 'single', # [single, multi-speaker]
     speaker_embedding_size  = 16, 
 
     embedding_size = 512,    # 'ᄀ', 'ᄂ', 'ᅡ' 에 대한 embedding dim
