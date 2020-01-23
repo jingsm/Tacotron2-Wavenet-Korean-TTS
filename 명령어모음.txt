@@ -14,7 +14,7 @@ python preprocess.py --num_workers 10 --name son --in_dir .\datasets\son --out_d
 python preprocess.py --num_workers 10 --name moon --in_dir .\datasets\moon --out_dir .\data\moon
 
 
-python train_tacotron2.py --data_paths .\data\moon,.\data\son
+python train_tacotron2.py --data_paths .\data\moon,.\data\son --batch_size 8
 python train_tacotron2.py --data_paths .\data\son --load_path .\logdir-tacotron2\son_2019-12-17_15-50-52
 python train_tacotron2.py --data_paths .\data\moon --load_path .\logdir-tacotron2\moon_2019-12-17_14-45-37
 
