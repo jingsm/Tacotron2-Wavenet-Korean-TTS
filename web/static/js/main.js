@@ -1,7 +1,8 @@
 ﻿var sw;
 var wavesurfer;
 
-var defaultSpeed = 0.03;
+// var defaultSpeed = 0.03;
+var defaultSpeed = 0.05;
 var defaultAmplitude = 0.3;
 
 var activeColors = [[32,133,252], [94,252,169], [253,71,103]];
@@ -16,18 +17,31 @@ function generate(ip, port, text, speaker_id) {
 
   fetch(url, {cache: 'no-cache', mode: 'cors'})
     .then(function(res) {
+
       if (!res.ok) throw Error(response.statusText)
       return res.blob()
+
     }).then(function(blob) {
+
+      console.log(blob.type);
+      console.log(blob.size);
+
       var url = URL.createObjectURL(blob);
       console.log(url);
       inProgress = false;
+
+      $("#waveform").show();
+      $("#playbutton").show();
+
       wavesurfer.load(url);
       $("#synthesize").removeClass("is-loading");
+
     }).catch(function(err) {
+
       showWarning("에러가 발생했습니다");
       inProgress = false;
       $("#synthesize").removeClass("is-loading");
+
     });
 }
 
@@ -57,11 +71,19 @@ function generate(ip, port, text, speaker_id) {
     sw.setSpeed(defaultSpeed);
     setDefaultColor(sw, false);
 
+    // wavesurfer = WaveSurfer.create({
+    //   container: '#waveform',
+    //   waveColor: 'violet',
+    //   barWidth: 3,
+    //   progressColor: 'purple'
+    // });
+
     wavesurfer = WaveSurfer.create({
       container: '#waveform',
-      waveColor: 'violet',
-      barWidth: 3,
-      progressColor: 'purple'
+      backend: 'MediaElement',
+      mediaType:'audio',
+      normalize: true,
+      mediaControls: false
     });
 
     wavesurfer.on('ready', function () {
@@ -86,9 +108,14 @@ function generate(ip, port, text, speaker_id) {
       setDefaultColor(sw, false);
     });
 
-    $(document).on('click', "#synthesize", function() {
-      synthesize();
-    });
+    $(document)
+      .on('click', "#synthesize", function() {
+        synthesize();
+      });
+
+    document
+      .querySelector('[data-action="play"]')
+      .addEventListener('click', wavesurfer.playPause.bind(wavesurfer));
 
     function synthesize() {
       var text = $("#text").val().trim();
@@ -99,8 +126,8 @@ function generate(ip, port, text, speaker_id) {
 
       generate('0.0.0.0', 51000, text, speaker_id);
 
-      var lowpass = wavesurfer.backend.ac.createGain();
-      wavesurfer.backend.setFilter(lowpass);
+      // var lowpass = wavesurfer.backend.ac.createGain();
+      // wavesurfer.backend.setFilter(lowpass);
     }
   }
 })(window, document, undefined);
