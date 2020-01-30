@@ -83,7 +83,7 @@ function generate(ip, port, text, speaker_id) {
       backend: 'MediaElement',
       mediaType:'audio',
       normalize: true,
-      mediaControls: false
+      mediaControls: true
     });
 
     wavesurfer.on('ready', function () {

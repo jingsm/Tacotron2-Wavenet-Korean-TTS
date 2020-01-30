@@ -16,8 +16,8 @@ ROOT_PATH = "web"
 AUDIO_DIR = "audio"
 AUDIO_PATH = os.path.join(ROOT_PATH, AUDIO_DIR)
 
-base_path = os.path.dirname(os.path.realpath(__file__))
-static_path = os.path.join(base_path, 'web/static')
+BASE_PATH = os.path.dirname(os.path.realpath(__file__))
+static_path = os.path.join(BASE_PATH, 'web/static')
 
 global_config = None
 synthesizer = Synthesizer()
@@ -62,8 +62,9 @@ def generate_audio_response(text, speaker_id):
     hashed_text = hashlib.md5(text.encode('utf-8')).hexdigest()
 
     relative_dir_path = os.path.join(AUDIO_DIR, model_name)
+    file_name = "{}.{}.wav".format(hashed_text, speaker_id)
     relative_audio_path = os.path.join(
-            relative_dir_path, "{}.{}.wav".format(hashed_text, speaker_id))
+            relative_dir_path, file_name)
     real_path = os.path.join(ROOT_PATH, relative_audio_path)
     makedirs(os.path.dirname(real_path))
 
@@ -75,12 +76,14 @@ def generate_audio_response(text, speaker_id):
         except Exception as e:
             traceback.print_exc()
             return jsonify(success=False), 400
-
+    
+    attachment_filename = os.path.basename(add_postfix(real_path, 0))
+    
     return send_file(
             add_postfix(relative_audio_path, 0),
             mimetype="audio/wav", 
             as_attachment=True, 
-            attachment_filename=hashed_text + ".wav")
+            attachment_filename=attachment_filename)
 
     response = make_response(audio)
     response.headers['Content-Type'] = 'audio/wav'
@@ -114,8 +117,13 @@ def send_css(path):
 
 @app.route('/audio/<path:path>')
 def send_audio(path):
-    return send_from_directory(
-            os.path.join(static_path, 'audio'), path)
+    global global_config
+
+    model_name = os.path.basename(global_config.load_path)
+    relative_path = os.path.join(AUDIO_PATH, model_name)
+    real_path = os.path.join(BASE_PATH, relative_path)
+
+    return send_from_directory(real_path, path)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
