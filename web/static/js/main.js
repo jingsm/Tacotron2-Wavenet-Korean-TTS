@@ -81,9 +81,11 @@ function generate(ip, port, text, speaker_id) {
     wavesurfer = WaveSurfer.create({
       container: '#waveform',
       backend: 'MediaElement',
+      waveColor: 'violet',
+      progressColor: 'purple',
       mediaType:'audio',
       normalize: true,
-      mediaControls: true
+      mediaControls: false
     });
 
     wavesurfer.on('ready', function () {
