@@ -59,6 +59,13 @@ def prepare_dirs(config, hparams):
         save_hparams(config.model_dir, hparams)
         copy_file("hparams.py", os.path.join(config.model_dir, "hparams.py"))
 
+def backup_file(path):
+    root, ext = os.path.splitext(path)
+    new_path = "{}.backup_{}{}".format(root, get_time(), ext)
+
+    os.rename(path, new_path)
+    print(" [*] {} has backup: {}".format(path, new_path))
+
 def save(saver, sess, logdir, step):
     model_name = 'model.ckpt'
     checkpoint_path = os.path.join(logdir, model_name)

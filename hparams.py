@@ -42,9 +42,8 @@ hparams = tf.contrib.training.HParams(
     trim_fft_size = 512, 
     trim_hop_size = 128,
     trim_top_db = 23,
-    
-    
-    
+
+    ignore_recognition_level = 0, # 0: use all, 1: ignore only unmatched_alignment, 2: fully ignore recognition
     
     clip_mels_length = True, #For cases of OOM (Not really recommended, only use if facing unsolvable OOM errors, also consider clipping your samples to smaller chunks)   
     max_mel_frames = 1000,  #Only relevant when clip_mels_length = True, please only use after trying output_per_steps=3 and still getting OOM errors.
@@ -139,7 +138,8 @@ hparams = tf.contrib.training.HParams(
     dropout_prob = 0.5,
 
     reduction_factor = 2,  # reduction_factor가 적으면 더 많은 iteration이 필요하므로, 더 많은 메모리가 필요하다.
-    
+
+
     # Encoder
     enc_conv_num_layers = 3,
     enc_conv_kernel_size = 5,
@@ -204,6 +204,8 @@ hparams = tf.contrib.training.HParams(
     min_tokens = 30,  #originally 50, 30 is good for korean,  text를 token으로 쪼갰을 때, 최소 길이 이상되어야 train에 사용
     min_n_frame = 30*5,  # min_n_frame = reduction_factor * min_iters, reduction_factor와 곱해서 min_n_frame을 설정한다.
     max_n_frame = 200*5,
+    min_iters = 30,
+    max_iters = 200,
     skip_inadequate = False,
  
     griffin_lim_iters = 60,
